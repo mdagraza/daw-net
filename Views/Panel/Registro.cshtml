@@ -1,0 +1,84 @@
+﻿@model RefugioAnimales.ViewModel.PanelRegistroViewModel
+
+@{
+    ViewData["Title"] = "Registro";
+}
+
+
+<div class="d-flex justify-content-center align-items-center flex-column p-3">
+    <h3>Registro</h3>
+    @if (TempData["Mensaje"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Mensaje"]
+        </div>
+    }
+    <div class="row">
+        <form asp-action="Registro">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="returnUrl" value="@Context.Request.Query["ReturnUrl"]" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Usuario" class="control-label"></label>
+                <input asp-for="Usuario" class="form-control" />
+                <span asp-validation-for="Usuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pass1" class="control-label"></label>
+                <div class="input-group">
+                    <input asp-for="Pass1" class="form-control Pass" type="password" />
+                    <button class="btn btn-outline-secondary mostrarPass" type="button">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+                <span asp-validation-for="Pass1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pass2" class="control-label"></label>
+                <div class="input-group">
+                    <input asp-for="Pass2" class="form-control Pass" type="password" />
+                    <button class="btn btn-outline-secondary mostrarPass" type="button">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+                <span asp-validation-for="Pass2" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group d-flex justify-content-center align-items-center gap-3">
+                <input type="submit" value="Registrarse" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const pass = document.querySelectorAll('.Pass');
+    const mostrarPass = document.querySelectorAll('.mostrarPass');
+
+    mostrarPass.forEach(btn => {
+        btn.addEventListener('click', function () {
+
+            // Detectar si están ocultas o visibles
+            const showing = [...pass].some(f => f.type === "text");
+
+            pass.forEach(f => {
+                f.type = showing ? "password" : "text";
+            });
+
+            // Actualizar iconos de todos los botones
+            mostrarPass.forEach(b => {
+                b.innerHTML = showing
+                    ? '<i class="bi bi-eye"></i>'
+                    : '<i class="bi bi-eye-slash"></i>';
+            });
+        });
+    });
+</script>
+
+<!--
+
+<input class="form-control" type="text" data-val="true" data-val-length="The field Nombre de Usuario must be a string with a maximum length of 50." data-val-length-max="50" data-val-required="Debes poner un nombre" id="NombreUsuario" maxlength="50" name="NombreUsuario" value="">
+
+<input class="form-control" type="text" data-val="true" data-val-required="Debes poner una contraseña" id="PasswordHash" name="PasswordHash" value="">
+
+-->

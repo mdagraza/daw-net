@@ -1,0 +1,65 @@
+﻿@model RefugioAnimales.ViewModel.AdoptanteAnimalesViewModel
+
+@{
+    ViewData["Title"] = "Detalle";
+}
+
+<h1>Detalle de @Model.Nombre</h1>
+
+<div>
+    <hr />
+    <dl class="row g-5">
+        <div class="col-4">
+            <dt class="col-sm">
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+            <dd class="col-sm">
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+            <dt class="col-sm">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt class="col-sm">
+                @Html.DisplayNameFor(model => model.Telefono)
+            </dt>
+            <dd class="col-sm">
+                @Html.DisplayFor(model => model.Telefono)
+            </dd>
+            <dt class="col-sm">
+                @Html.DisplayNameFor(model => model.FechaAlta)
+            </dt>
+            <dd class="col-sm">
+                @Html.DisplayFor(model => model.FechaAlta)
+            </dd>
+        </div>
+        <div class="col" style="border-left: 1px solid grey;">
+            <dt class="col-sm">
+                @Html.DisplayNameFor(model => model.Animales)
+            </dt>
+            <dd>
+                <div class="list-group">
+                    @if (Model.Animales != null && Model.Animales.Any())
+                    {
+                        @foreach (var animal in Model.Animales)
+                        {
+                            <a asp-controller="Animal" asp-action="Detalle" asp-route-id="@animal.Id" class="list-group-item list-group-item-action">@animal.Nombre (@animal.Especie)</a>
+                        }
+                    
+                    }
+                    else
+                    {
+                        <p class="list-group-item">Ningún animal adoptado.</p>
+                    }
+                </div>
+            </dd>
+        </div>
+       
+    </dl>
+</div>
+<div>
+    <a asp-action="Editar" asp-route-id="@Model?.Id" class="btn btn-primary">Editar</a>
+    <a asp-action="Adoptantes" class="btn btn-secondary">Volver a la lista</a>
+</div>

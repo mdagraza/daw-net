@@ -1,0 +1,25 @@
+﻿@model RefugioAnimales.ViewModel.PanelUsuarioEditViewModel
+
+@{
+    ViewData["Title"] = "Eliminar";
+}
+
+<h4>Panel de @Model.Usuario.NombreUsuario</h4>
+
+<div>
+    <p><a asp-action="Panel" class="">Cambiar contraseña</a><span> | </span>Lista de Usuarios</p>
+</div>
+<hr />
+<div>
+
+    <div class="alert alert-warning">
+        <p>¿ Estás seguro de eliminar a @Model.UsuarioEdit.NombreUsuario ?</p>
+    </div>
+    
+    <form asp-action="Eliminar">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="UsuarioEdit.Id" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" />
+        <a asp-action="Usuarios" class="btn btn-secondary">Volver a la lista</a>
+    </form>
+</div>

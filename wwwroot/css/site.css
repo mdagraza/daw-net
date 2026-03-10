@@ -20,3 +20,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/*Para que no muestre un espacio vacio en el desplegable*/
+select#AdoptanteId option[value=""] {
+    display: none;
+}

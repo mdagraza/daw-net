@@ -1,0 +1,82 @@
+﻿@model IEnumerable<RefugioAnimales.ViewModel.AnimalViewModel>
+
+@{
+    ViewData["Title"] = "Animales";
+}
+
+<h1>Animales</h1>
+
+<p>
+    <a asp-action="Crear" class="btn btn-success">Añadir nuevo animal</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FotoContenido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Edad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdoptanteNombre)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                    <img src="data:@item.FotoMimeType;base64,@Convert.ToBase64String(@item.FotoContenido)"
+                         alt="Foto de @item.Nombre"
+                         style="max-width:100px; height:auto;" />
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Especie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Edad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdoptanteNombre)
+            </td>
+            <td>
+                <a asp-action="Editar" asp-route-id="@item.Id" class="btn btn-primary">Editar</a>
+                <a asp-action="Detalle" asp-route-id="@item.Id" class="btn btn-secondary">Detalles</a>
+                @if (item.AdoptanteId==null)
+                {
+                    <a asp-action="Adoptar" asp-route-id="@item.Id" class="btn btn-warning">Adoptar</a>
+                }
+                else
+                {
+                    <a asp-action="Desadoptar" asp-route-id="@item.Id" class="btn btn-outline-warning">Desadoptar</a>
+                }
+                    
+                <a asp-action="Eliminar" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

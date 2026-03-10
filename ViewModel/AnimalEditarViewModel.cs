@@ -1,11 +1,11 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace RefugioAnimales.Models
+namespace RefugioAnimales.ViewModel
 {
-    public class Animal
+    public class AnimalEditarViewModel
     {
-        [Required]
         [DisplayName("Id")]
         public int Id { get; set; }
 
@@ -26,29 +26,20 @@ namespace RefugioAnimales.Models
         [DisplayName("Estado")]
         [Required(ErrorMessage = "Debes seleccionar un estado")]
         public int EstadoId { get; set; }
-        public EstadoAnimal Estado { get; set; }
 
         [DisplayName("Descripción")]
         [Required(ErrorMessage = "Debes poner una descripción"), StringLength(255)]
         public string Descripcion { get; set; }
 
         [DisplayName("Foto")]
-        [Required(ErrorMessage = "Debes añadir una foto")]
-        public byte[] FotoContenido { get; set; }
+        public byte[]? FotoContenido { get; set; }
+
         public string? FotoMimeType { get; set; }
 
-        [DisplayName("Adoptante")]
-        public int? AdoptanteId { get; set; }
-
         [DisplayName("Fecha de adopción")]
-        [DataType(DataType.Date)]
         public DateTime? FechaAdopcion { get; set; }
 
-        //Para crear la relación con Adoptante, uno o nullo, porque un animal puede no estar adoptado y solo tener un adoptante
-        public Adoptante? Adoptante { get; set; }
-
-
-
+        public IEnumerable<SelectListItem> EstadoLista { get; set; }
 
     }
 }

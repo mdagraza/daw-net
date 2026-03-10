@@ -1,0 +1,72 @@
+﻿@model RefugioAnimales.Models.Usuario
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+
+<div class="d-flex justify-content-center align-items-center flex-column p-3">
+    <h3>Login</h3>
+    @if (TempData["Mensaje"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Mensaje"]
+        </div>
+    }
+    @if (TempData["MensajeOk"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["MensajeOk"]
+        </div>
+    }
+    <div class="row">
+        <form asp-action="Login">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="returnUrl" value="@Context.Request.Query["ReturnUrl"]" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NombreUsuario" class="control-label"></label>
+                <input asp-for="NombreUsuario" class="form-control" />
+                <span asp-validation-for="NombreUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PasswordHash" class="control-label"></label>
+                <div class="input-group">
+                    <input asp-for="PasswordHash" class="form-control" id="Pass" type="password"/>
+                    <button class="btn btn-outline-secondary" type="button" id="mostrarPass">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+                <span asp-validation-for="PasswordHash" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group d-flex justify-content-center align-items-center gap-3">
+                <input type="submit" value="Login" class="btn btn-primary" />
+                <a asp-action="Registro" class="btn btn-success">Registrarse</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const mostrarPass = document.querySelector('#mostrarPass');
+    const pass = document.querySelector('#Pass');
+
+    mostrarPass.addEventListener('click', function () {
+        const type = pass.getAttribute('type') === 'password' ? 'text' : 'password';
+        pass.setAttribute('type', type);
+
+        // Cambiar el icono
+        this.innerHTML = type === 'password'
+            ? '<i class="bi bi-eye"></i>'
+            : '<i class="bi bi-eye-slash"></i>';
+    });
+</script>
+
+<!--
+
+<input class="form-control" type="text" data-val="true" data-val-length="The field Nombre de Usuario must be a string with a maximum length of 50." data-val-length-max="50" data-val-required="Debes poner un nombre" id="NombreUsuario" maxlength="50" name="NombreUsuario" value="">
+
+<input class="form-control" type="text" data-val="true" data-val-required="Debes poner una contraseña" id="PasswordHash" name="PasswordHash" value="">
+
+-->

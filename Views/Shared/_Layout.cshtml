@@ -10,12 +10,13 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RefugioAnimales.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Refugio" asp-action="Inicio">Refugio de Animales</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Refugio de Animales</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -23,18 +24,38 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Refugio" asp-action="Inicio">Inicio</a>
+                            <a class="nav-link text-dark btn btn-outline-primary border-0" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Refugio" asp-action="Animales">Lista de Animales</a>
+                            <a class="nav-link text-dark btn btn-outline-primary border-0" asp-area="" asp-controller="Animal" asp-action="Animales">Animales</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark btn btn-outline-primary border-0" asp-area="" asp-controller="Adoptante" asp-action="Adoptantes">Adoptantes</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        @if (User?.Identity?.IsAuthenticated ?? false)
+                        {
+                            <li class="nav-item me-1"><a class="btn btn-outline-secondary border-0" asp-controller="Panel" asp-action="Panel">Panel usuario</a></li>
+                            <li class="nav-item">
+                                <form class="d-inline" asp-controller="Panel" asp-action="Logout" method="post">
+                                    <button class="btn btn-outline-dark">Cerrar sesión</button>
+                                    @Html.AntiForgeryToken()
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item me-1"><a class="btn btn-outline-dark" asp-controller="Panel" asp-action="Login">Entrar</a></li>
+                            <li class="nav-item"><a class="btn btn-success" asp-controller="Panel" asp-action="Registro">Registrarse</a></li>
+                        }
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="container bg-light ">
+        <main role="main" class="container bg-light p-3 rounded">
             @RenderBody()
         </main>
     </div>
