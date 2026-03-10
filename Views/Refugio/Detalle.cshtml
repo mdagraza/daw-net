@@ -1,0 +1,24 @@
+﻿@*
+    Muestra el nombre, especie, edad, estado, descripción y una imagen.
+*@
+@{
+    
+}
+@model Animal
+<h2>@Model.Nombre</h2>
+<br />
+<div class="row g-5"> <!-- row crea filas y dentro deben establecerse las columnas | g-5 establece la separación entre las columnas -->
+    <div class="col-auto"> <!-- col-auto permite que el tamaño de la columna se ajuste automaticamente al contenido -->
+        <p class="mb-0">Especie: @Model.Especie</p> <!-- mb-0 quita margin bottom -->
+        <p class="mb-0">Edad: @Model.Edad año(s)</p>
+        <p class="mb-0">Estado: @Model.Estado</p>
+        <br />
+        <p class="mb-0">Descripción: <br /> @Model.Descripcion</p>
+        <br />
+        <a asp-controller="Refugio" asp-action="Animales" class=" btn btn-primary">Volver atrás</a> <!-- btn establece que es un boton | btn-primary establece los colores.. -->
+    </div>
+    <div class="col"> <!-- col es por defecto dentro de row. Distribuye automaticamente con el espacio disponible, si hay varios col se va dividiendo en partes iguales -->
+        <img src="~/images/@Model.Foto" alt="Foto de @Model.Especie" width="500" />
+    </div>
+</div>
+

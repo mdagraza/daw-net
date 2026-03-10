@@ -1,0 +1,14 @@
+﻿@*
+    Muestra una lista con los animales y enlaces a su ficha.
+*@
+@{
+
+    
+}
+@model List<Animal>
+<h2>Lista de animales</h2>
+<br />
+@foreach (var a in Model)
+{
+    <p><a asp-action="Detalle" asp-route-id="@a.Id">@a.Nombre</a> - @a.Especie: @a.Edad año(s). Estado: @a.Estado</p>
+}
